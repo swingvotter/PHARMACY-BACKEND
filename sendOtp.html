@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sendotp</title>
+  </head>
+  <body>
+    <form>
+      <input type="email" name="email" />
+      <button type="submit">send</button>
+    </form>
+
+    <script>
+      const form = document.querySelector("form");
+      const email = document.querySelector("input");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        console.log("form has been submitted");
+
+        const res = await fetch(
+          "https://043b-102-176-101-121.ngrok-free.app/auth/send-otp",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: email.value }),
+          }
+        );
+        const data = await res.json();
+        console.log(data);
+      });
+    </script>
+  </body>
+</html>

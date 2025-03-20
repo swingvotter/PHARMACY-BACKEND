@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Product</title>
+  </head>
+  <body>
+    <h1>Create Product Page</h1>
+
+    <form enctype="multipart/form-data">
+      <input type="file" name="productImage" required />
+      <input type="text" name="name" placeholder="Name" required />
+      <input type="number" name="price" placeholder="Price" required />
+      <input
+        type="text"
+        name="description"
+        placeholder="description"
+        required
+      />
+      <input type="number" name="dosage" placeholder="dosage" required />
+      <input type="text" name="category" placeholder="category" required />
+      <input type="number" name="stock" placeholder="stock" required />
+      <button type="submit">Create</button>
+    </form>
+
+    <script>
+      const form = document.querySelector("form");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const url =
+          "https://043b-102-176-101-121.ngrok-free.app/Product/create";
+
+        // Create FormData object and append values
+        const formData = new FormData(form);
+
+        try {
+          const res = await fetch(url, {
+            method: "POST",
+            body: formData, // Send form data
+            credentials: "include",
+          });
+
+          const data = await res.json();
+          console.log("Response:", data);
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      });
+    </script>
+  </body>
+</html>
