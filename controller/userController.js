@@ -4,6 +4,22 @@ const bcrypt = require("bcryptjs");
 const otpGenerator = require("../util/otpGenerator");
 const otpSender = require("../util/otpSender");
 
+const userDetail = async (req, res) => {
+  try {
+    const user = await User.find({}).select(
+      "firstName lastName email telephoneNo"
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "userDetails fetched succesfully",
+      user,
+    });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 //sending otp start here
 const sendOtp = async (req, res) => {
   const { email } = req.body;
@@ -437,4 +453,5 @@ module.exports = {
   forgetPassword,
   verifyResetPassword,
   resetPassword,
+  userDetail,
 };

@@ -9,9 +9,11 @@ const {
   forgetPassword,
   verifyResetPassword,
   resetPassword,
+  userDetail,
 } = require("../controller/userController");
 const router = express.Router();
 
+router.get("/user", userDetail);
 router.post("/send-otp", sendOtp);
 router.post("/verify-otp", verifyOtp);
 router.post("/register", registerUser);
