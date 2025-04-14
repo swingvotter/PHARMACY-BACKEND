@@ -6,8 +6,8 @@ const otpSender = require("../util/otpSender");
 
 const userDetail = async (req, res) => {
   try {
-    const user = await User.find({}).select(
-      "firstName lastName email telephoneNo"
+    const user = await User.find({ isVerified: true }).select(
+      "firstName lastName email telephoneNo address"
     );
 
     res.status(200).json({
