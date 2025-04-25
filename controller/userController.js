@@ -198,6 +198,17 @@ const registerUser = async (req, res) => {
       data: userWithoutPassword,
     });
   } catch (error) {
+    if (
+      error.code === 11000 &&
+      error.keyPattern &&
+      error.keyPattern.telephoneNo
+    ) {
+      return res.status(409).json({
+        success: false,
+        message: "Telephone number already registered with another account",
+      });
+    }
+
     return res.status(500).json({ success: false, message: error.message });
   }
 };
